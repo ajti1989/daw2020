@@ -1,1 +1,1 @@
-# Primera línea de un fichero reademe.md
+# Primera línea de un fichero readme.md
