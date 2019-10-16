@@ -1,1 +1,1 @@
-# Primera línea de un fichero readme.md
+# Juegaciam, un inicio de un juego en PHP usando sesiones
