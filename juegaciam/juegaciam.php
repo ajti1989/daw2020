@@ -6,15 +6,17 @@
 	//Almacen = 150 madera, 25 piedra, 100 comida
 	//Cuartel = 75 madera, 25 piedra, 50 comida, 20 oro
 
-	//session_destroy();
-	//Cada minuto: -20 comida, -10 oro --> OPCIONAL PARA EL FINAL
+	//Para cuando necesitéis borrar la sesión descomentáis esto y listo. Luego
+	//se comenta otra vez
+	//session_destroy(); 
 	
-   
+    //Reduciendo el oro
     if(isset($_SESSION["intervalo"])){
         // Calcular el tiempo de vida de la sesión (TTL = Time To Live)
         $sessionTTL2 = time() - $_SESSION["intervalo"];
         $num_decremento = $sessionTTL2 / 5;
         $_SESSION['suministros']['oro']-=round($num_decremento);
+        $_SESSION['suministros']['comida']-=round($num_decremento*2);
             
     } 
 
