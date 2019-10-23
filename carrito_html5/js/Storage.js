@@ -30,7 +30,7 @@ function pintar() {
 		list += "</thead>";
 		var i = 0;
 		total = 0;
-		//for more advance feature, you can set cap on max items in the cart
+		//Se podría controlar un máximo de items en el carro, o una paginación.
 		for (i = 0; i <= localStorage.length-1; i++) {
 			key = localStorage.key(i);
 			var libro = JSON.parse(localStorage.getItem(key));
@@ -46,12 +46,8 @@ function pintar() {
 		total = parseFloat(total).toFixed( 2 ); //Mostrar total con dos decimales
 		list += "<tr><td>TOTAL</td><td colspan='4'><strong>" + total + " €</strong></td></tr>";
 
-		//if no item exists in the cart
-		if (list == "<tr><th>ISBN</th><th>Cantidad</th></tr>\n") {
-			list += "<tr><td><i>...</i></td>\n<td><i>...</i></td></tr>\n";
-		}
-		//bind the data to html table
-		//you can use jQuery too....
+		//Metemos el html con los productos del carro en la tabla del html
+		//Se puede hacer con JQuery
 		document.getElementById('list').innerHTML = list;
 	} else {
 		alert('No soporta HTML 5 y no puedes manejar este carro de la compra.');
@@ -59,7 +55,7 @@ function pintar() {
 }
 //------------------------------------------------------------------------------
 
-//toma lo que hay en localstorage y lo manda por Ajax a comprar.php, donde se hace la compra del pedido
+//Toma lo que hay en localstorage y lo manda por Ajax a comprar.php, donde se hace la compra del pedido en BBDD
 function Comprar() {
 
 	var libros = new Array();
@@ -83,24 +79,20 @@ function Comprar() {
 }
 //-------------------------------------------------------------------------------------
 
-//delete an existing key=>value from the HTML5 storage
+//Borra un item del espacio de almacenamiento. Hay que pasarle una key, el isbn del libro
 function RemoveItem(unItem) {
 	localStorage.removeItem(unItem);
 	pintar();
 }
 //-------------------------------------------------------------------------------------
 
-//restart the local storage
+//Restauramos el almacenamiento local, vaya que lo borramos
 function ClearAll() {
 	localStorage.clear();
 	pintar();
 }
 
-/*
- =====> Checking the browser support
- //this step may not be required as most of modern browsers do support HTML5
- */
- //below function may be redundant
+//Comprobamos que el navegador soporta LocalStorage. Todos los actuales lo hacen, los que soportan HTML5
 function CheckBrowser() {
 	if ('localStorage' in window && window['localStorage'] !== null) {
 		// we can use localStorage object to store data

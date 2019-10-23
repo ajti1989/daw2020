@@ -3,8 +3,8 @@
     $libros = $_POST['data'];
     //Lo recorremos y lo vamos metiendo en BBDD
     foreach ($libros as $libro) {
-        //Se accede así
-        //echo $libro['titulo']."<br>";
+        //Se accede así:
+        //$libro['titulo']
         //Vamos leyendo cada línea de pedido y grabándola en BBDD
 
 
