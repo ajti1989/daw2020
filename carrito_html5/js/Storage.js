@@ -43,6 +43,7 @@ function pintar() {
 					+"</tr>\n";
 			total += libro.precio * libro.cantidad;
 		}
+		total = parseFloat(total).toFixed( 2 ); //Mostrar total con dos decimales
 		list += "<tr><td>TOTAL</td><td colspan='4'><strong>" + total + " €</strong></td></tr>";
 
 		//if no item exists in the cart
