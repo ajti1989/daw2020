@@ -1,5 +1,5 @@
 
-//Añadir nuevo libro al carrito
+//Añadir nuevo libro al carro de la compra
 function addItem(isbn, titulo, autor, precio) {
 	if (localStorage.getItem(isbn) == null) {
 		var object = { 'titulo' : titulo, 'autor' : autor, 'precio' : precio, 'cantidad' : 1 };
@@ -12,11 +12,13 @@ function addItem(isbn, titulo, autor, precio) {
 	}
 	document.getElementById('numero').innerHTML = localStorage.length;
 }
+//------------------------------------------------------------------------------
 
 //Pinta el dígito del carro de la compra
 function numCarro() {
 	document.getElementById('numero').innerHTML = localStorage.length;
 }
+//------------------------------------------------------------------------------
 
 //Pinta el carro de la compra
 function pintar() {
@@ -24,7 +26,7 @@ function pintar() {
 		numCarro();
 		var key = "";
 		var list = "<thead class='thead-light'>";
-		list += "<tr><th>ISBN</th><th>Título</th><th>Autor</th><th>Precio</th><th>Cantidad</th></tr>\n";
+		list += "<tr><th>ISBN</th><th>Título</th><th>Autor</th><th>Precio</th><th>Cantidad</th><th>Borrar</th></tr>\n";
 		list += "</thead>";
 		var i = 0;
 		total = 0;
@@ -36,7 +38,9 @@ function pintar() {
 					+"<td>" + libro.titulo + "</td>\n"
 					+"<td>" + libro.autor + "</td>\n"
 					+"<td>" + libro.precio + "</td>\n"
-					+"<td>" + libro.cantidad + "</td></tr>\n";
+					+"<td>" + libro.cantidad + "</td>\n"
+					+"<td><input type='button' name='delete' value='X' onclick='RemoveItem(" + key +")'></td>\n"
+					+"</tr>\n";
 			total += libro.precio * libro.cantidad;
 		}
 		list += "<tr><td>TOTAL</td><td colspan='4'><strong>" + total + " €</strong></td></tr>";
@@ -52,8 +56,8 @@ function pintar() {
 		alert('No soporta HTML 5 y no puedes manejar este carro de la compra.');
 	}
 }
-
 //------------------------------------------------------------------------------
+
 //toma lo que hay en localstorage y lo manda por Ajax a comprar.php, donde se hace la compra del pedido
 function Comprar() {
 
@@ -76,40 +80,20 @@ function Comprar() {
 		}
 	 });
 }
+//-------------------------------------------------------------------------------------
 
-
-//------------------------------------------------------------------------------
-//change an existing key=>value in the HTML5 storage
-function ModifyItem() {
-	var name1 = document.forms.ShoppingList.name.value;
-	var data1 = document.forms.ShoppingList.data.value;
-	//check if name1 is already exists
-	
-//check if key exists
-			if (localStorage.getItem(name1) !=null)
-			{
-			  //update
-			  localStorage.setItem(name1,data1);
-			  document.forms.ShoppingList.data.value = localStorage.getItem(name1);
-			}
-		
-	
+//delete an existing key=>value from the HTML5 storage
+function RemoveItem(unItem) {
+	localStorage.removeItem(unItem);
 	pintar();
 }
-//-------------------------------------------------------------------------
-//delete an existing key=>value from the HTML5 storage
-function RemoveItem() {
-	var name = document.forms.ShoppingList.name.value;
-	document.forms.ShoppingList.data.value = localStorage.removeItem(name);
-	doShowAll();
-}
 //-------------------------------------------------------------------------------------
+
 //restart the local storage
 function ClearAll() {
 	localStorage.clear();
 	pintar();
 }
-
 
 /*
  =====> Checking the browser support
@@ -124,7 +108,4 @@ function CheckBrowser() {
 			return false;
 	}
 }
-//-------------------------------------------------
-/*
-You can extend this script by inserting data to database or adding payment processing API to shopping cart..
-*/
+//------------------------------------------------------------------------------------
